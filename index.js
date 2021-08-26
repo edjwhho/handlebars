@@ -1,18 +1,49 @@
 const express = require('express');
 const app = express();
 const port = 3000;
-//Loads the handlebars module
+
 const handlebars = require('express-handlebars');
-//Sets our app to use the handlebars engine
-app.set('view engine', 'handlebars');
-//Sets handlebars configurations (we will go through them later on)
-app.engine('handlebars', handlebars({
-layoutsDir: __dirname + '/views/layouts',
+app.set('view engine', 'hbs');
+app.engine('hbs', handlebars({
+    layoutsDir: __dirname + '/views/layouts',
+    extname: 'hbs',
+    defaultLayout: 'planB',
+    partialsDir: __dirname + '/views/partials/'
 }));
+
 app.use(express.static('public'))
+
+fakeApi = () => {
+return [
+        {
+            name: 'WHO',
+            lane: 'midlaner'
+        },
+        {
+            name: 'Jayce',
+            lane: '22222toplaner'
+        },
+        {
+            name: 'Heimerdinger',
+            lane: 'toplaner'
+        },
+        {
+            name: 'Zed',
+            lane: 'midlaner'
+        },
+        {
+            name: 'Azir',
+            lane: 'midlaner'
+        }
+];
+}
+
 app.get('/', (req, res) => {
-//Serves the body of the page aka "main.handlebars" to the container //aka "index.handlebars"
-res.render('main', {layout : 'index'});
+    res.render('main', {
+        layout: 'index', 
+        suggestedChamps: fakeApi(), 
+        listExists: false
+    });
 });
 
 app.listen(port, () => console.log(`App listening to port ${port}`));
