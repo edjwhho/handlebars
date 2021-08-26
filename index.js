@@ -42,7 +42,7 @@ app.get('/', (req, res) => {
     res.render('main', {
         layout: 'index', 
         suggestedChamps: fakeApi(), 
-        listExists: false
+        listExists: true
     });
 });
 
